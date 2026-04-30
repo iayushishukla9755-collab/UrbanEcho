@@ -1,0 +1,8 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "gunicorn myorg.myorg.wsgi"
+
+[deploy.release]
+command = "python manage.py migrate && python manage.py collectstatic --noinput"
