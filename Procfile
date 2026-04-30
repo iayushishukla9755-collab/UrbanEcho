@@ -1,1 +1,1 @@
-web: gunicorn myorg.myorg.wsgi
+web: gunicorn myorg.myorg.wsgi:application
