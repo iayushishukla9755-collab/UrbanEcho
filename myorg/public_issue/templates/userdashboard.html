@@ -1,0 +1,309 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Dashboard | UrbanEcho</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-container": "#e5ebff",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "primary-container": "#1964db",
+                        "surface-container": "#eceef0",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#191c1e",
+                        "secondary-fixed-dim": "#59d8dc",
+                        "surface-tint": "#0058cb",
+                        "surface-variant": "#e0e3e5",
+                        "outline-variant": "#c2c6d6",
+                        "on-tertiary-fixed-variant": "#004397",
+                        "on-background": "#191c1e",
+                        "surface-container-highest": "#e0e3e5",
+                        "background": "#f7f9fb",
+                        "on-secondary-container": "#006e71",
+                        "inverse-primary": "#b0c6ff",
+                        "on-secondary-fixed": "#002021",
+                        "inverse-surface": "#2d3133",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-high": "#e6e8ea",
+                        "secondary-container": "#76f2f6",
+                        "surface-container-low": "#f2f4f6",
+                        "outline": "#737785",
+                        "primary-fixed": "#d9e2ff",
+                        "tertiary": "#004eac",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f7f9fb",
+                        "on-primary-fixed": "#001945",
+                        "secondary-fixed": "#79f5f9",
+                        "on-secondary-fixed-variant": "#004f51",
+                        "tertiary-fixed-dim": "#aec6ff",
+                        "secondary": "#00696c",
+                        "on-secondary": "#ffffff",
+                        "primary": "#004cb2",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#d8e2ff",
+                        "on-tertiary-fixed": "#001a43",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "on-primary-fixed-variant": "#00429b",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d8dadc",
+                        "on-surface-variant": "#424654",
+                        "tertiary-container": "#0e65d8",
+                        "on-primary-container": "#e6ebff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex">
+<!-- NavigationDrawer (Sidebar) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#1C67DF] flex flex-col py-8 gap-2 z-50 hidden md:flex">
+
+    <!-- Logo -->
+    <div class="px-6 mb-8">
+        <div class="flex items-center gap-3 text-white">
+            <img src="{% static 'assets/finallogo.png' %}" class="h-12 w-auto object-contain">
+            <div class="flex flex-col">
+                <span class="font-bold text-lg">UrbanEcho</span>
+                <span class="text-[10px] opacity-80">City Concierge</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex flex-col gap-1 flex-grow">
+        <a href="{% url 'home' %}" class="px-4 py-3 mx-2 flex items-center gap-3 text-white hover:bg-white/10 rounded-xl">
+            <span class="material-symbols-outlined">home</span>
+            <span>Home</span>
+        </a>
+
+        <a href="{% url 'reportissue' %}" class="px-4 py-3 mx-2 flex items-center gap-3 text-white hover:bg-white/10 rounded-xl">
+            <span class="material-symbols-outlined">campaign</span>
+            <span>Report Issue</span>
+        </a>
+
+        <a href="{% url 'userdashboard' %}" class="px-4 py-3 mx-2 flex items-center gap-3 text-white bg-white/15 rounded-xl">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span>User Dashboard</span>
+        </a>
+
+        <a href="{% url 'profile' %}" class="px-4 py-3 mx-2 flex items-center gap-3 text-white hover:bg-white/10 rounded-xl">
+            <span class="material-symbols-outlined">person</span>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Logout at Bottom -->
+   <div class="pt-6 mt-auto border-t border-white/10">
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:text-white hover:bg-white/5 scale-95 active:scale-90 text-white" href="{% url 'logout' %}">
+        <span class="material-symbols-outlined text-white" data-icon="logout">logout</span>
+        <span class="text-white">Logout</span>
+        </a>
+    </div>
+
+</aside>
+<!-- Content Wrapper -->
+<div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-40 bg-slate-50/80 backdrop-blur-md flex items-center justify-between px-6 py-4">
+<div class="flex items-center gap-3 bg-white px-4 py-2 rounded-xl shadow">
+    <div class="text-right">
+        <p class="text-xs text-gray-500">Welcome</p>
+        <p class="font-semibold text-gray-800">{{ user_name }}</p>
+    </div>
+    <div class="h-10 w-10 rounded-full bg-primary overflow-hidden border-2 border-white shadow-sm">
+        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqKnXFLEggcmoM-swmli1tE4KEtzfuKW4_fpPEBkJp7LIi0dTA57f77US8mODFnlWc9NjBMarAf1qJr9wogJsbauYMbnM_guLCfZG9lTgNCtyWI_ctOmSmJL0RmxNwhrdv_s7X-ER58ggvfVDKz8npF1hJuKD450_zJDOURJUKREpN9JQWW1w0JQ4T9tutBtfO3ZbaIVnt2Un1NQPeY2TNqSsmT_cdCzw__qPtMj3a280m5vkETcYv5gxkXUiqSHOW5vsyEkY9zyU"/>
+    </div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 p-6 lg:p-10 max-w-7xl mx-auto w-full">
+<!-- Page Header -->
+<div class="mb-10">
+<h2 class="text-3xl font-bold tracking-tight text-on-surface mb-2">User Dashboard</h2>
+<p class="text-on-surface-variant font-medium">Track your complaints, status, and ratings in real-time.</p>
+</div>
+<!-- Summary Cards: Bento Style Layering -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment_late</span>
+</div>
+<div>
+<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Total Complaints</p>
+<p class="text-2xl font-bold">{{ total_complaints }}</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pending</span>
+</div>
+<div>
+<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Pending</p>
+<p class="text-2xl font-bold">{{ pending_count }}</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sync</span>
+</div>
+<div>
+<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">In Progress</p>
+<p class="text-2xl font-bold">{{ progress_count }}</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div>
+<p class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Resolved</p>
+<p class="text-2xl font-bold">{{ resolved_count }}</p>
+</div>
+</div>
+</div>
+<!-- Complaint History Table Section -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-6 px-2">
+<h3 class="text-xl font-bold">My Complaint History</h3>
+</div>
+<div class="overflow-hidden rounded-xl bg-surface-container-lowest border border-outline-variant/10 shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse table-fixed">
+<thead>
+<tr>
+<th class="px-6 py-4 w-32">Complaint ID</th>
+<th class="px-6 py-4 w-64">Issue Title</th>
+<th class="px-6 py-4 w-40">Category</th>
+<th class="px-6 py-4 w-32">Status</th>
+<th class="px-6 py-4 w-32">Rating</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+{% for item in issue_list %}
+{% with issue=item.issue rating=item.rating %}
+<tr class="hover:bg-surface-variant/20 transition-colors">
+
+    <td class="px-6 py-5 text-sm font-mono font-medium text-primary">
+        {{ issue.issue_id }}
+    </td>
+
+    <td class="px-6 py-5">
+        <div class="text-sm font-bold">{{ issue.issue_type }}</div>
+        <div class="text-[11px] text-on-surface-variant">
+            {{ issue.location }} • {{ issue.created_date }}
+        </div>
+    </td>
+
+    <td class="px-6 py-5">
+        {{ issue.issue_type }}
+    </td>
+
+    <td class="px-6 py-5">
+        {{ issue.status }}
+    </td>
+
+    <td class="px-6 py-5">
+        {% if issue.status == "Resolved" %}
+            {% if rating > 0 %}
+                {% for i in "12345" %}
+                    {% if forloop.counter <= rating %}
+                        ⭐
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <a href="{% url 'give_rating' issue.issue_id %}" 
+                   class="text-primary font-semibold">
+                   Give Rating
+                </a>
+            {% endif %}
+        {% else %}
+            Not Available
+        {% endif %}
+    </td>
+
+</tr>
+{% endwith %}
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Complaint Details & Timeline (Bento Layout) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Case Info Card -->
+<!-- Timeline Panel -->
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto py-6 flex justify-between items-center px-8 border-t border-slate-200/20 bg-slate-50">
+<p class="font-inter text-xs font-medium text-slate-400">
+                © 2026 UrbanEcho Civic Systems. All data encrypted.
+            </p>
+<div class="flex gap-6">
+</div>
+</footer>
+</div>
+<!-- Mobile Bottom Navigation (Visible on Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_20px_rgba(0,0,0,0.05)] flex justify-around items-center py-3 z-50">
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="text-[10px] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-[10px] font-bold">Stats</span>
+</a>
+<div class="-mt-8 bg-primary w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg shadow-primary/40 border-4 border-white">
+<span class="material-symbols-outlined">add</span>
+</div>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="text-[10px] font-bold">Alerts</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold">Account</span>
+</a>
+</nav>
+</body></html>

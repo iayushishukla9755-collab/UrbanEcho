@@ -1,0 +1,451 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UrbanEcho - Report New Issue</title>
+<!-- Google Fonts: Manrope & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#004397",
+              "inverse-primary": "#b0c6ff",
+              "tertiary-fixed-dim": "#aec6ff",
+              "outline-variant": "#c2c6d6",
+              "tertiary-container": "#0e65d8",
+              "tertiary-fixed": "#d8e2ff",
+              "outline": "#737785",
+              "surface-container-high": "#e6e8ea",
+              "surface-bright": "#f7f9fb",
+              "surface": "#f7f9fb",
+              "on-primary-fixed-variant": "#00429b",
+              "surface-dim": "#d8dadc",
+              "surface-variant": "#e0e3e5",
+              "on-secondary": "#ffffff",
+              "error-container": "#ffdad6",
+              "inverse-surface": "#2d3133",
+              "tertiary": "#004eac",
+              "secondary": "#3CC0C5", /* Brand Teal */
+              "primary": "#1C67DF", /* Brand Blue */
+              "secondary-container": "#d8f6f7",
+              "on-secondary-fixed": "#002021",
+              "surface-container-highest": "#e0e3e5",
+              "primary-fixed": "#d9e2ff",
+              "primary-container": "#1964db",
+              "on-secondary-container": "#006e71",
+              "error": "#ba1a1a",
+              "background": "#f7f9fb",
+              "on-tertiary": "#ffffff",
+              "on-surface-variant": "#424654",
+              "on-primary-container": "#e6ebff",
+              "on-background": "#191c1e",
+              "surface-container-low": "#f2f4f6",
+              "on-tertiary-fixed": "#001a43",
+              "on-error-container": "#93000a",
+              "secondary-fixed": "#79f5f9",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#eff1f3",
+              "surface-tint": "#1C67DF",
+              "on-primary-fixed": "#001945",
+              "on-secondary-fixed-variant": "#004f51",
+              "secondary-fixed-dim": "#59d8dc",
+              "on-tertiary-container": "#e5ebff",
+              "surface-container-lowest": "#ffffff",
+              "on-error": "#ffffff",
+              "on-surface": "#191c1e",
+              "surface-container": "#eceef0",
+              "primary-fixed-dim": "#b0c6ff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {
+                "DEFAULT": "0.25rem", 
+                "lg": "0.5rem", 
+                "xl": "0.75rem", 
+                "2xl": "1.125rem", /* 18px */
+                "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      /* Custom shadow for 18px radius cards */
+      .card-shadow {
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+      }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+<!-- SIDEBAR -->
+<aside class="h-screen w-64 fixed left-0 top-0 hidden md:flex flex-col bg-[#1C67DF] p-4 gap-2 shadow-xl shadow-primary/20 z-50">
+<div class="flex items-center gap-3 px-2 py-4 mb-2">
+<div class="w-14 h-14 bg-white -xl flex items-center justify-center overflow-hidden flex-shrink-0">
+<img alt="UrbanEcho Logo" class="w-full h-full object-contain p-1" src="{% static 'assets/finallogo.png' %}"/>
+</div>
+<div>
+<h1 class="text-white font-headline font-bold leading-tight text-xl">UrbanEcho</h1>
+<p class="font-label text-white/80 text-xs">City Concierge</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1 flex-grow"><a class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 hover:text-white transition-all rounded-xl active:scale-[0.98] text-white" href="{% url 'home' %}">
+<span class="material-symbols-outlined">home</span>
+<span class="text-sm font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white/15 text-white rounded-xl shadow-sm transition-all active:scale-[0.98]" href="{% url 'reportissue' %}">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<span class="text-sm font-medium">Report Issue</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 hover:text-white transition-all rounded-xl active:scale-[0.98] text-white" href="{% url 'userdashboard' %}">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">User Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 hover:text-white transition-all rounded-xl active:scale-[0.98] text-white" href="{% url 'profile' %}">
+<span class="material-symbols-outlined">person</span>
+<span class="text-sm font-medium">Profile</span>
+</a></nav>
+<div class="mt-auto flex flex-col gap-1 border-t border-white/10 pt-4">
+<a class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 hover:text-white transition-all rounded-xl text-white" href="{% url 'logout' %}">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</a>
+</div>
+</aside>
+<!-- MAIN CONTENT WRAPPER -->
+<main class="md:ml-64 min-h-screen flex flex-col">
+<!-- TOP APP BAR -->
+<header class="w-full sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center justify-between px-6 h-16 border-b border-surface-container">
+<div class="flex items-center gap-6 w-1/2">
+</div>
+<div class="flex items-center gap-4">
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="flex items-center gap-4">
+</div>
+<div>
+<img alt="User profile" class="w-9 h-9 rounded-full object-cover border border-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvGb0QwNb1qLCc2bBLYJ9C_s9xqweM4-n6vmt6gTry-4i52MpMaUh-vIWIYsGEGnGLueqSS9zvSip_NWC5IutvBX9uscLdyx08VB37g60r-QKhV1BjdJ646wyYAX0gIxjClbkt1y7MyA9mkRTtQuOiIjgvtoR6o_3Gi1o3EX2LAAVk9ipv3PuXi-rAEXowdjAuFBVzwSxRIJFLHnSU3TlJeVsMvSoaNe4toO1fe2ZRCfKhhf-F0auJhzhfUVY45kki2zsXAP4UHqI"/>
+</div>
+</header>
+<!-- PAGE CONTENT -->
+<div class="flex-grow p-6 md:p-10 max-w-7xl mx-auto w-full">
+<!-- HEADER SECTION -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="space-y-2">
+<nav class="flex items-center gap-2 text-xs font-label text-on-surface-variant mb-1">
+<span>Dashboard</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-medium">Report Issue</span>
+</nav>
+<h2 class="text-3xl font-headline font-bold tracking-tight text-on-surface">Report New Issue</h2>
+<p class="text-on-surface-variant max-w-lg">Contribute to your neighborhood by reporting infrastructure or safety concerns directly to the city council ledger.</p>
+</div>
+<div>
+<span class="inline-flex items-center gap-2 px-4 py-2 bg-secondary/15 text-on-secondary-container rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                    Estimated Review: 24h
+                </span>
+</div>
+</div>
+<!-- 1. PROGRESS INDICATOR -->
+<div class="mb-10 w-full">
+<div class="relative flex items-center justify-between">
+<!-- Lines -->
+<div class="absolute left-0 top-1/2 w-full h-[2px] bg-surface-container-highest -translate-y-1/2 -z-10"></div>
+<div class="absolute left-0 top-1/2 w-1/3 h-[2px] bg-primary -translate-y-1/2 -z-10"></div>
+<!-- Steps -->
+<div class="flex flex-col items-center gap-2 bg-surface px-2">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold">1</div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-primary">Report Issue</span>
+</div>
+<div class="flex flex-col items-center gap-2 bg-surface px-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center text-sm font-bold border-2 border-surface-container-highest">2</div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Evidence</span>
+</div>
+<div class="flex flex-col items-center gap-2 bg-surface px-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center text-sm font-bold border-2 border-surface-container-highest">3</div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Location</span>
+</div>
+<div class="flex flex-col items-center gap-2 bg-surface px-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center text-sm font-bold border-2 border-surface-container-highest">4</div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Submit</span>
+</div>
+</div>
+</div>
+<!-- TWO COLUMN GRID -->
+{% if error %}
+<div class="mb-6 flex items-center gap-3 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl shadow-sm">
+    <span class="material-symbols-outlined text-red-500">error</span>
+    <span class="text-sm font-medium">{{ error }}</span>
+</div>
+{% endif %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- LEFT COLUMN: ISSUE INFORMATION -->
+<div class="space-y-8">
+<section class="bg-surface-container-lowest p-8 rounded-2xl card-shadow border border-outline-variant/10 h-full">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">info</span>
+</div>
+<h3 class="text-xl font-headline font-bold text-on-surface">Issue Information</h3>
+</div>
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Report Title</label>
+<input name="title" required class="w-full bg-surface-container-high/50 border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all text-sm" placeholder="e.g., Deep pothole on 5th Avenue" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Category</label>
+<div class="relative">
+<select name="category" required class="w-full bg-surface-container-high/50 border-none rounded-lg pl-10 pr-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all appearance-none text-sm">
+<option value="" disabled selected>Select category</option>
+<option value="pothole">Pothole</option>
+<option value="garbage">Garbage Disposal</option>
+<option value="lighting">Street Lighting</option>
+<option value="graffiti">Graffiti</option>
+<option value="water">Water Leak</option>
+</select>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">category</span>
+</div>
+<div class="flex gap-4 mt-2 px-1">
+<div class="flex items-center gap-1 opacity-50"><span class="material-symbols-outlined text-[16px]">construction</span></div>
+<div class="flex items-center gap-1 opacity-50"><span class="material-symbols-outlined text-[16px]">delete</span></div>
+<div class="flex items-center gap-1 opacity-50"><span class="material-symbols-outlined text-[16px]">lightbulb</span></div>
+<div class="flex items-center gap-1 opacity-50"><span class="material-symbols-outlined text-[16px]">water_drop</span></div>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Priority Level</label>
+<select name="priority" required class="w-full bg-surface-container-high/50 border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all appearance-none text-sm">
+<option value="" disabled selected>Select priority</option>
+<option>Low</option>
+<option>Medium</option>
+<option>High</option>
+<option>Urgent</option>
+</select>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Date Observed</label>
+<input name="date_observed" class="w-full bg-surface-container-high/50 border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all text-sm" type="date"/>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Detailed Description</label>
+<span id="charCount" class="text-[10px] font-medium text-slate-400 mb-1">0 / 500 characters</span>
+</div>
+<textarea name="description" required class="w-full bg-surface-container-high/50 border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all resize-none text-sm" rows="6"></textarea>
+</div>
+</div>
+</section>
+</div>
+<!-- RIGHT COLUMN: EVIDENCE & LOCATION -->
+<div class="space-y-8">
+<section class="bg-surface-container-lowest overflow-hidden rounded-2xl card-shadow border border-outline-variant/10 h-full flex flex-col">
+<div class="p-8 pb-4">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-lg bg-secondary/15 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">photo_library</span>
+</div>
+<h3 class="text-xl font-headline font-bold text-on-surface">Evidence &amp; Location</h3>
+</div>
+<!-- UPLOAD BOX -->
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-6 bg-surface-container-low/50 flex flex-col items-center justify-center text-center group hover:bg-surface-variant transition-colors cursor-pointer mb-6">
+<div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl text-primary">cloud_upload</span>
+</div>
+<p class="font-bold text-sm text-on-surface mb-0.5">Drag and drop photos</p>
+<p class="text-[10px] text-on-surface-variant">PNG, JPG or HEIC up to 10MB</p>
+<label for="fileInput"
+    class="mt-3 px-5 py-1.5 bg-white border border-outline-variant text-on-surface text-[12px] font-bold rounded-lg hover:shadow-md transition-all cursor-pointer">
+    Browse Files
+</label>
+<input type="file" name="image" id="fileInput" accept="image/*" class="hidden" required>
+</div>
+<!-- IMAGE PREVIEW -->
+<!-- IMAGE PREVIEW -->
+<div class="mb-6 flex gap-3 hidden" id="previewContainer">
+  <div class="relative w-20 h-20 rounded-lg overflow-hidden border border-outline-variant shadow-sm group">
+
+    <img id="previewImage" class="w-full h-full object-cover"/>
+
+    <button type="button" onclick="removeImage()"
+      class="absolute top-1 right-1 w-6 h-6 bg-error text-white rounded-full flex items-center justify-center shadow-lg">
+      ✕
+    </button>
+
+    <div id="fileName"
+      class="absolute bottom-0 left-0 right-0 bg-black/50 text-[8px] text-white py-0.5 text-center">
+    </div>
+
+  </div>
+</div>
+</div>
+<!-- LOCATION FIELDS SECTION (Clean, direct layout) -->
+<div class="p-8 pt-0 flex-grow">
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Incident Location</h4>
+</div>
+<div class="space-y-4">
+<div class="space-y-1">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant ml-1">Street Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">location_on</span>
+<input name="location" required class="w-full bg-surface-container-high/50 border-none rounded-lg pl-10 pr-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all" placeholder="123 Example Street" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant ml-1">City</label>
+<input class="w-full bg-surface-container-high/50 border-none rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all" type="text" value="Metro City"/>
+</div>
+<div class="space-y-1">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant ml-1">District</label>
+<input class="w-full bg-surface-container-high/50 border-none rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Central" type="text" value="Central"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant ml-1">Zip Code</label>
+<input class="w-full bg-surface-container-high/50 border-none rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all" placeholder="10001" type="text" value="10001"/>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- FOOTER INFO CARDS -->
+<div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="flex items-start gap-4 p-5 bg-white rounded-2xl card-shadow border border-outline-variant/10">
+<div class="p-2 bg-primary/5 rounded-lg">
+<span class="material-symbols-outlined text-primary">security</span>
+</div>
+<div>
+<h4 class="font-bold text-sm text-on-surface">Private &amp; Secure</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Your data is encrypted and personal details are hidden from public view.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-5 bg-white rounded-2xl card-shadow border border-outline-variant/10">
+<div class="p-2 bg-primary/5 rounded-lg">
+<span class="material-symbols-outlined text-primary">sync</span>
+</div>
+<div>
+<h4 class="font-bold text-sm text-on-surface">Real-time Updates</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Receive instant notifications as your report moves through the pipeline.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-5 bg-white rounded-2xl card-shadow border border-outline-variant/10">
+<div class="p-2 bg-primary/5 rounded-lg">
+<span class="material-symbols-outlined text-primary">diversity_3</span>
+</div>
+<div>
+<h4 class="font-bold text-sm text-on-surface">Community Driven</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Reports help the city allocate resources to the neighborhoods that need it most.</p>
+</div>
+</div>
+</div>
+<!-- ACTION AREA -->
+<div class="mt-12 pt-8 border-t border-surface-container-high flex flex-col items-center gap-6">
+<div class="flex flex-col md:flex-row gap-4 w-full justify-center items-center">
+<div class="flex flex-col items-center gap-2">
+<button type="submit" 
+class="px-10 py-4 bg-primary text-white font-headline font-bold rounded-xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all w-full md:w-auto">
+    Submit Issue Report
+</button>
+<p class="text-xs text-on-surface-variant">
+    Please fill all required fields before submitting.
+</p>
+<p class="text-[11px] font-medium text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                        Estimated resolution time: 2–3 days
+                    </p>
+</div>
+<a href="{% url 'userdashboard' %}" 
+   class="px-8 py-4 text-on-surface-variant hover:text-error font-headline font-medium transition-all w-full md:w-auto text-center">
+   Cancel
+</a>
+</div>
+<p class="text-xs text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">history_edu</span>
+                Transparency first: All reports are logged in the public ledger.
+            </p>
+</div>
+</form>
+</div>
+<!-- MOBILE BOTTOM NAVBAR -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-200 h-16 flex items-center justify-around px-2 z-50"><button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<span class="text-[10px] font-medium">Report</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button></div>
+</main>
+<script>
+const textarea = document.querySelector("textarea[name='description']");
+const counter = document.getElementById("charCount");
+
+textarea.addEventListener("input", function() {
+    counter.textContent = textarea.value.length + " / 500 characters";
+});
+</script>
+<script>
+const fileInput = document.getElementById("fileInput");
+const previewImage = document.getElementById("previewImage");
+const previewContainer = document.getElementById("previewContainer");
+const fileName = document.getElementById("fileName");
+
+fileInput.addEventListener("change", function () {
+    const file = this.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            previewImage.src = e.target.result;
+            previewContainer.classList.remove("hidden");
+            fileName.textContent = file.name;
+        };
+
+        reader.readAsDataURL(file);
+    }
+});
+
+function removeImage() {
+    fileInput.value = "";
+    previewImage.src = "";
+    fileName.textContent = "";
+    previewContainer.classList.add("hidden");
+}
+</script>
+</body></html>

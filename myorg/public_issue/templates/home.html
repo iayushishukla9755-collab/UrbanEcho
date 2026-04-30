@@ -1,0 +1,507 @@
+{% load static %}
+<html class="scroll-smooth" lang="en"><head></head><body class="bg-surface font-body text-on-surface antialiased">```html
+    <meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UrbanEcho | Smart City Reporting Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed": "#d9e2ff",
+              "on-tertiary-fixed": "#001a43",
+              "primary-fixed-dim": "#b0c6ff",
+              "surface-tint": "#0058cb",
+              "on-error-container": "#93000a",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed": "#d8e2ff",
+              "background": "#f7f9fb",
+              "surface-container-lowest": "#ffffff",
+              "on-surface": "#191c1e",
+              "surface-container-highest": "#e0e3e5",
+              "on-secondary-container": "#006e71",
+              "secondary-fixed-dim": "#59d8dc",
+              "secondary": "#00696c",
+              "surface-dim": "#d8dadc",
+              "primary": "#1C67DF",
+              "outline": "#737785",
+              "tertiary": "#004eac",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#2d3133",
+              "surface-container": "#eceef0",
+              "on-background": "#191c1e",
+              "on-tertiary-container": "#e5ebff",
+              "inverse-primary": "#b0c6ff",
+              "primary-container": "#1C67DF",
+              "surface-container-high": "#e6e8ea",
+              "outline-variant": "#c2c6d6",
+              "on-error": "#ffffff",
+              "on-secondary-fixed-variant": "#004f51",
+              "on-secondary-fixed": "#002021",
+              "error-container": "#ffdad6",
+              "on-primary-fixed-variant": "#00429b",
+              "on-tertiary-fixed-variant": "#004397",
+              "surface-variant": "#e0e3e5",
+              "secondary-container": "#38BFC3",
+              "surface-container-low": "#f2f4f6",
+              "error": "#ba1a1a",
+              "on-primary-container": "#e6ebff",
+              "tertiary-container": "#0e65d8",
+              "surface-bright": "#f7f9fb",
+              "on-primary-fixed": "#001945",
+              "on-surface-variant": "#424654",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#aec6ff",
+              "inverse-on-surface": "#eff1f3",
+              "surface": "#f7f9fb",
+              "secondary-fixed": "#38BFC3",
+              "civic-blue": "#1C67DF",
+              "teal-accent": "#38BFC3",
+              "neutral-grey": "#414242"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .hero-gradient {
+        background: linear-gradient(135deg, rgba(28, 103, 223, 0.45) 0%, rgba(56, 191, 195, 0.25) 100%);
+      }
+      @keyframes countUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .stat-number {
+        animation: countUp 0.8s ease-out forwards;
+      }
+      #mobile-menu {
+        transition: transform 0.3s ease-in-out;
+      }
+      #mobile-menu.hidden {
+        transform: translateY(-100%);
+        display: none;
+      }
+      #mobile-menu.active {
+        transform: translateY(0);
+        display: block;
+      }
+    </style>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center justify-between px-4 sm:px-8 max-w-full mx-auto py-2">
+<img alt="UrbanEcho Logo" class="w-auto object-contain h-12 sm:h-16 h-16 w-auto" src="{% static 'assets/finallogo.png' %}"/>
+<nav class="hidden lg:flex items-center space-x-8">
+<a href="{% url 'reportissue' %}">Report Issue</a>
+</nav>
+<div class="flex items-center gap-2 sm:gap-4">
+    
+    <a href="{% url 'signin' %}" 
+       class="bg-primary text-white px-6 py-2 rounded-lg">
+        User Sign In
+    </a>
+
+    <a href="{% url 'signin' %}" 
+       class="bg-teal-accent text-white px-6 py-2 rounded-lg">
+        Admin Login
+    </a>
+
+    <!-- Hamburger Menu Button -->
+    <button class="lg:hidden p-2 text-on-surface focus:outline-none" id="menu-toggle">
+        <span class="material-symbols-outlined text-3xl">menu</span>
+    </button>
+
+</div>
+<!-- Mobile Menu Overlay -->
+<div class="hidden absolute top-full left-0 w-full bg-white shadow-xl lg:hidden p-6 space-y-4 border-t border-slate-100" id="mobile-menu">
+<a class="block text-civic-blue font-headline font-bold text-lg" href="#">Home</a>
+<a class="block text-slate-600 font-headline font-semibold text-lg" href="#">Report Issue</a>
+<hr class="border-slate-100"/>
+<div class="flex flex-col gap-4">
+<a href="{% url 'signin' %}">
+    <button class="w-full py-3 bg-civic-blue text-on-primary rounded-xl font-bold">
+        User Sign In
+    </button>
+</a>
+
+<a href="{% url 'signin' %}" 
+   class="bg-teal-accent text-white px-6 py-2 rounded-lg">
+   Admin Login
+</a>
+</div>
+</div>
+</header>
+<main class="pt-16 sm:pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[500px] sm:h-[870px] flex items-center overflow-hidden py-16 sm:py-0">
+<div class="absolute inset-0 z-0">
+<img alt="Modern city skyline" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrYyFZ9na5Epi7-ZhTbJFUbjECX_W6EWO7nGRcAmrBlXNe2NJpVilFNhcG90vr7OkhpGyLzQT5xyCgOvMWZ16wO79DVhkalRnHNZKaxWwIAckKXPPbHrvAt7mSWP1Ui4UYuFqqW4zy8k9DBBhA6SOYX_fe8YqG5NRGr6sg7eRK_LKvNHfe4nT4UIQkj_tTUvZAftCtIAJunGrC3yHTsi5ambx-rb7Pijb_oRh-qupHDQEJWpBI_Hgxg98dUYfC3Jl_klILYToJdo0"/>
+<div class="absolute inset-0 hero-gradient"></div>
+</div>
+<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 w-full">
+<div class="max-w-2xl text-center sm:text-left">
+<span class="inline-block py-1 px-4 rounded-full bg-teal-accent text-white text-[10px] sm:text-xs font-bold tracking-widest uppercase mb-4 sm:mb-6">Civic Technology</span>
+<h1 class="text-4xl sm:text-6xl lg:text-7xl font-headline font-bold text-white tracking-tight mb-4 sm:mb-6 leading-tight sm:leading-none">Fix Your City in Minutes.</h1>
+<p class="text-base sm:text-xl text-white mb-8 sm:mb-10 max-w-lg mx-auto sm:mx-0 leading-relaxed drop-shadow-sm font-medium">Report issues and track progress in real-time. Join thousands of citizens making our urban environments better every day.</p>
+<div class="flex flex-col sm:flex-row flex-wrap gap-4 mb-8 sm:mb-12">
+<a href="{% url 'reportissue' %}">
+    <button class="w-full sm:w-auto px-8 py-4 bg-white text-civic-blue font-headline font-bold rounded-xl shadow-xl">
+        Report Issue
+    </button>
+</a>
+
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-4">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
+<img alt="User" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfOcoCUhNkq5M9JGkA-jkzZnUQYNt3A856CvPF1yl3E37oDrgrsdSB1EOJT1b3n058iqovWyfrbWI_1RZGzN9zMoqh2hu9x8m59CNBhu_ke3veC5YClUe45-LT6JgbDqlU-8DOVVsc_mjSQ5a2E-_VERRacgapnJnsXxbN9Fxoqdqd-SefpPC8DKa77hRrhCl1Zl2DzUAvtymAEsIDeJ8pR1FTOETIUwV-mA78LvbvUIiG0GVdO699-V0Ije1oSxZ2Q-i4UOUb1kQ"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
+<img alt="User" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQi3LtOK5NIkvd6dL2GTaRf4h7IJ7DwsQKpZGIuYJTHbf9g4jG3HlFq1ESQikfuD8oLRZApGN-xvhiK9xfQ6WX8soltYQEYbJ7wTtOQ86bSC6WQpfqkxyEMdf_ycb_qDAi3ix22uv6WUz38SIyNXbuW1mXHnwn3mDAjTBXWRal1uEGuGVA0OVV1vaG0HuNHFYK8EAV_f6UCmC4p-XtGKPntrY5lYzrWMotjfTPYGwmN0zJw35oERFFUkj7TzPxZMS8I6hNQO5KppY"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
+<img alt="User" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-JRMqzGWowqPxbY6FOg8R-sI77zHW8EhdKHm11xDXaMv8BuoNuYwrr30QdbelknHjIIheAJCYf7UYXvyFIwdmUg4RMElPsoveljKUANOU0lav2-gJ_8m14nKPDY5qM5cqjVE1vIN0W_NglZbqh8UAgfy4cRjP0R0cwQiKtR-hqav_SBHDMKKuF9Sjbl9l_R9b4y2yyb83gslze6mZZqwANvcScLRpK3KteSMQtz4KSRGTDyngIcgVpR2l-rbdrB40TIN4XQWXrjc"/>
+</div>
+</div>
+<p class="text-white/90 text-sm font-medium">Trusted by 100K+ citizens across 150+ cities</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- How It Works -->
+<section class="py-16 sm:py-24 px-4 sm:px-8 max-w-7xl mx-auto">
+<div class="text-center mb-12 sm:mb-16">
+<h2 class="text-3xl sm:text-4xl font-headline font-bold tracking-tight mb-4">How It Works</h2>
+<div class="w-16 h-1 bg-civic-blue mx-auto rounded-full"></div>
+</div>
+<div class="relative grid grid-cols-1 md:grid-cols-3 gap-12">
+<!-- Dotted line only for md+ -->
+<div class="hidden md:block absolute top-12 left-1/4 right-1/4 h-1 bg-surface-container-high z-0"></div>
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-primary-fixed flex items-center justify-center mb-6 shadow-sm">
+<span class="material-symbols-outlined text-3xl sm:text-4xl text-civic-blue" style="font-variation-settings: 'FILL' 1;">add_a_photo</span>
+</div>
+<h3 class="text-lg sm:text-xl font-headline font-semibold mb-2">1. Report Issue</h3>
+<p class="text-on-surface-variant text-sm sm:text-base max-w-xs">Snap a photo and pinpoint the location on our interactive map.</p>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-teal-accent/10 flex items-center justify-center mb-6 shadow-sm">
+<span class="material-symbols-outlined text-3xl sm:text-4xl text-teal-accent" style="font-variation-settings: 'FILL' 1;">assignment_turned_in</span>
+</div>
+<h3 class="text-lg sm:text-xl font-headline font-semibold mb-2">2. Authority Reviews</h3>
+<p class="text-on-surface-variant text-sm sm:text-base max-w-xs">Local government receives the ticket and assigns a repair crew.</p>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-primary-fixed flex items-center justify-center mb-6 shadow-sm">
+<span class="material-symbols-outlined text-3xl sm:text-4xl text-civic-blue" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<h3 class="text-lg sm:text-xl font-headline font-semibold mb-2">3. Issue Resolved</h3>
+<p class="text-on-surface-variant text-sm sm:text-base max-w-xs">You get notified once the work is complete. City updated.</p>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="bg-surface-container-low py-16 sm:py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+<div class="group bg-surface-container-lowest p-6 sm:p-8 rounded-3xl text-center shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+<span class="material-symbols-outlined text-civic-blue mb-4 text-3xl">analytics</span>
+<div class="text-3xl sm:text-4xl font-headline font-bold text-on-surface mb-1 stat-number">850K+</div>
+<div class="text-xs sm:text-sm font-semibold text-neutral-grey uppercase tracking-wider">Issues Reported</div>
+</div>
+<div class="group bg-surface-container-lowest p-6 sm:p-8 rounded-3xl text-center shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+<span class="material-symbols-outlined text-teal-accent mb-4 text-3xl">speed</span>
+<div class="text-3xl sm:text-4xl font-headline font-bold text-on-surface mb-1 stat-number">92%</div>
+<div class="text-xs sm:text-sm font-semibold text-neutral-grey uppercase tracking-wider">Resolution Rate</div>
+</div>
+<div class="group bg-surface-container-lowest p-6 sm:p-8 rounded-3xl text-center shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+<span class="material-symbols-outlined text-civic-blue mb-4 text-3xl">groups</span>
+<div class="text-3xl sm:text-4xl font-headline font-bold text-on-surface mb-1 stat-number">100K+</div>
+<div class="text-xs sm:text-sm font-semibold text-neutral-grey uppercase tracking-wider">Active Citizens</div>
+</div>
+<div class="group bg-surface-container-lowest p-6 sm:p-8 rounded-3xl text-center shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+<span class="material-symbols-outlined text-teal-accent mb-4 text-3xl">map</span>
+<div class="text-3xl sm:text-4xl font-headline font-bold text-on-surface mb-1 stat-number">150+</div>
+<div class="text-xs sm:text-sm font-semibold text-neutral-grey uppercase tracking-wider">Cities Covered</div>
+</div>
+</div>
+</section>
+<!-- Vision & Mission -->
+<section class="py-16 sm:py-24 px-4 sm:px-8 max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+<div class="bg-white p-8 sm:p-12 rounded-[2rem] border-l-[8px] border-civic-blue shadow-sm">
+<div class="w-12 h-12 bg-primary-fixed rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-civic-blue">visibility</span>
+</div>
+<h3 class="text-2xl sm:text-3xl font-headline font-bold mb-4 sm:mb-6 text-on-surface">Our Vision</h3>
+<p class="text-base sm:text-lg leading-relaxed text-on-surface-variant">To create perfectly seamless urban environments where every citizen acts as a catalyst for positive change, powered by real-time data and transparent accountability.</p>
+</div>
+<div class="bg-white p-8 sm:p-12 rounded-[2rem] border-l-[8px] border-civic-blue shadow-sm">
+<div class="w-12 h-12 bg-primary-fixed rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-civic-blue">rocket_launch</span>
+</div>
+<h3 class="text-2xl sm:text-3xl font-headline font-bold mb-4 sm:mb-6 text-on-surface">Our Mission</h3>
+<p class="text-base sm:text-lg leading-relaxed text-on-surface-variant">Bridging the gap between municipal authorities and the community through intuitive digital infrastructure that prioritizes speed, efficiency, and civic pride.</p>
+</div>
+</div>
+</section>
+<!-- Core Values -->
+<section class="py-16 sm:py-24 bg-surface px-4 sm:px-8">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 gap-6">
+<div class="max-w-xl">
+<h2 class="text-3xl sm:text-4xl font-headline font-bold tracking-tight mb-4">The Values Driving Urban Change</h2>
+<p class="text-on-surface-variant text-sm sm:text-base">We believe that a smart city isn't just about sensors; it's about the people who live in it.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="group bg-surface-container-lowest p-6 sm:p-8 rounded-3xl border border-outline-variant/20 hover:border-civic-blue/40 hover:bg-primary/5 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+<div class="w-14 h-14 bg-primary-fixed rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-civic-blue">visibility</span>
+</div>
+<h4 class="text-lg sm:text-xl font-headline font-bold mb-3">Transparency</h4>
+<p class="text-on-surface-variant text-sm">Every ticket is public. Track every dollar and every hour spent on city repairs.</p>
+</div>
+<div class="group bg-surface-container-lowest p-6 sm:p-8 rounded-3xl border border-outline-variant/20 hover:border-teal-accent/40 hover:bg-primary/5 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+<div class="w-14 h-14 bg-teal-accent/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-teal-accent">diversity_3</span>
+</div>
+<h4 class="text-lg sm:text-xl font-headline font-bold mb-3">Community</h4>
+<p class="text-on-surface-variant text-sm">Empowering neighborhoods to prioritize what matters most to them locally.</p>
+</div>
+<div class="group bg-surface-container-lowest p-6 sm:p-8 rounded-3xl border border-outline-variant/20 hover:border-civic-blue/40 hover:bg-primary/5 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+<div class="w-14 h-14 bg-primary-fixed rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-civic-blue">bolt</span>
+</div>
+<h4 class="text-lg sm:text-xl font-headline font-bold mb-3">Efficiency</h4>
+<p class="text-on-surface-variant text-sm">Smart routing for repair crews means less downtime and faster resolutions.</p>
+</div>
+<div class="group bg-surface-container-lowest p-6 sm:p-8 rounded-3xl border border-outline-variant/20 hover:border-teal-accent/40 hover:bg-primary/5 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+<div class="w-14 h-14 bg-teal-accent/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-teal-accent">lightbulb</span>
+</div>
+<h4 class="text-lg sm:text-xl font-headline font-bold mb-3">Innovation</h4>
+<p class="text-on-surface-variant text-sm">Applying predictive AI to anticipate infrastructure needs before they fail.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Global Impact -->
+<section class="py-16 sm:py-24 px-4 sm:px-8 overflow-hidden">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+<div class="w-full lg:w-1/2 relative order-2 lg:order-1">
+<div class="aspect-square bg-surface-container-high rounded-full absolute -top-12 -left-12 w-full h-full -z-10 blur-3xl opacity-50"></div>
+<div class="bg-surface-container-lowest p-4 sm:p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<img alt="World map" class="rounded-lg w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwX6aa9zI3ku-OqiA9mDIaIhXotlFls___JqFOxd6ANm5JanZUHY7cVQnqVXcr9B_JcssNLzc8XcJCJKn6fdwql2F5C7s-AthXWv-nZwmht8j35EjzC76FQvGwMHFYTMTQIP0bandWqrQzcmSxadB6GkD3fFMw9CvyBmtXLZqN_JBwPbXZVisj8ZAP8XYIK_6LMKeVyH4aXRfqnKSffqhyeCdW8zUbBZxx3GOnIKJ3L-cG_ohC6iGG9ghADvjRdSREHDAwP8xLadQ"/>
+</div>
+</div>
+<div class="w-full lg:w-1/2 lg:pl-8 order-1 lg:order-2">
+<span class="text-civic-blue font-bold tracking-widest uppercase text-[10px] sm:text-xs mb-4 block">Our Reach</span>
+<h2 class="text-3xl sm:text-5xl font-headline font-bold tracking-tight mb-8 sm:mb-10">150+ Cities Connected and Counting</h2>
+<ul class="space-y-6 sm:space-y-8">
+<li class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-full bg-teal-accent/10 flex items-center justify-center flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-teal-accent text-xl">check</span>
+</div>
+<div>
+<h5 class="text-lg sm:text-xl font-headline font-bold">Standardized Reporting</h5>
+<p class="text-sm sm:text-lg text-on-surface-variant">Uniform data structures allow cities to share best practices and benchmark performance across borders.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-full bg-teal-accent/10 flex items-center justify-center flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-teal-accent text-xl">check</span>
+</div>
+<div>
+<h5 class="text-lg sm:text-xl font-headline font-bold">Citizen-Led Governance</h5>
+<p class="text-sm sm:text-lg text-on-surface-variant">Voters can see exactly how their tax dollars are improving their immediate surroundings in real-time.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="w-8 h-8 rounded-full bg-teal-accent/10 flex items-center justify-center flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-teal-accent text-xl">check</span>
+</div>
+<div>
+<h5 class="text-lg sm:text-xl font-headline font-bold">Scalable Infrastructure</h5>
+<p class="text-sm sm:text-lg text-on-surface-variant">From small towns to mega-cities, our platform adapts to local municipal workflows without friction.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Recent Issues -->
+<section class="py-16 sm:py-24 bg-surface-container-low px-4 sm:px-8">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 sm:mb-12 gap-6">
+<div>
+<h2 class="text-3xl sm:text-4xl font-headline font-bold tracking-tight mb-4">Recent Reports</h2>
+<p class="text-on-surface-variant text-sm sm:text-base">Live feed of issues being addressed in your area.</p>
+</div>
+<div class="w-full sm:w-auto overflow-x-auto">
+<div class="flex bg-surface-container p-1 rounded-xl min-w-max">
+
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm group hover:shadow-xl hover:bg-slate-50 transition-all duration-300 relative">
+<div class="relative h-48">
+<img alt="Pothole" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5Tqvq5RQyREASouSt1PggHPDzt54sdlfWtycy9U3M0D3DL-hXEkt-8oJkUxim4Jzi6CVwOUNMq9R8I3tltgiCsGBTBV7Qf5emSLHkQrSWm05A2_fwNoN6Zvw30Ypr18it57Z8tNzFhLh2haviThAqArCiGZqXUC5s09fb0_8k27AuYbz9dj9K8CD_gmZCvSFl9rlTIchjAVSVVLTWZcJJTHSBW3L-TFrWHRgy_68f30w_vGes16zRlBOh6Ko0_XC5hK4WLmF8aCI"/>
+<span class="absolute top-4 left-4 px-3 py-1 bg-civic-blue text-white text-[10px] font-bold rounded-full">In Progress</span>
+<div class="absolute inset-0 bg-civic-blue/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="text-white font-bold text-sm bg-civic-blue/90 px-4 py-2 rounded-lg flex items-center gap-2">View Details <span class="material-symbols-outlined text-sm">open_in_new</span></span>
+</div>
+</div>
+<div class="p-5 sm:p-6">
+<div class="flex items-center gap-2 text-neutral-grey text-[10px] font-medium mb-3">
+<span class="material-symbols-outlined text-sm">schedule</span> 2 hrs ago
+                        </div>
+<h4 class="text-lg sm:text-xl font-headline font-bold mb-2">Severe Pothole on 5th Ave</h4>
+<p class="text-on-surface-variant text-sm mb-4 line-clamp-2">Large hazard obstructing the right lane near the intersection. Multiple drivers reporting rim damage.</p>
+<div class="flex items-center gap-2 text-civic-blue font-semibold text-sm">
+<span class="material-symbols-outlined text-lg">location_on</span>
+                            Downtown Core, NYC
+                        </div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm group hover:shadow-xl hover:bg-slate-50 transition-all duration-300 relative">
+<div class="relative h-48">
+<img alt="Graffiti" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAq9Sy8V41iji6LTSR5G9SHXBXa3n9GBFhfGUNCRCZ11MijtImMzPSu5yJiLmxaoBQlldgSkdx_GKZy_hurxMWFb4jS1c1I0V1dTMqZjxvXNusQgb0xw_zVJ2wmieGE6CB79iGWux0TDWY4skdw-yFf-mU0Wz_cJ38W-9iGg8z6Ua0ReNz0qWLTHCvyzA9f1lhV-8IFY5dtp-d_lAL21tshtHqO97WTqJwL-__uUWtqcauf9pr2TTkyAfQExyCjwvwnga8JtirTNeU"/>
+<span class="absolute top-4 left-4 px-3 py-1 bg-teal-accent text-white text-[10px] font-bold rounded-full">Resolved</span>
+<div class="absolute inset-0 bg-teal-accent/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="text-white font-bold text-sm bg-teal-accent/90 px-4 py-2 rounded-lg flex items-center gap-2">View Details <span class="material-symbols-outlined text-sm">open_in_new</span></span>
+</div>
+</div>
+<div class="p-5 sm:p-6">
+<div class="flex items-center gap-2 text-neutral-grey text-[10px] font-medium mb-3">
+<span class="material-symbols-outlined text-sm">schedule</span> 5 hrs ago
+                        </div>
+<h4 class="text-lg sm:text-xl font-headline font-bold mb-2">Park Graffiti Cleanup</h4>
+<p class="text-on-surface-variant text-sm mb-4 line-clamp-2">Vandalism on the main pavilion and children's playground equipment. Crew dispatched for removal.</p>
+<div class="flex items-center gap-2 text-civic-blue font-semibold text-sm">
+<span class="material-symbols-outlined text-lg">location_on</span>
+                            Central Park District
+                        </div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm group hover:shadow-xl hover:bg-slate-50 transition-all duration-300 relative">
+<div class="relative h-48">
+<img alt="Street Light" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD92z4vWoWuT9Ji0FfuPromClVk9e5sMrgHxq30fVVWzDHoRha-ID8zD5vbosWzjLBq5CGVK4uX1c6M1sPRh9ba5YbOLBrI0PXyOAwyr6usKuhJaA1jhOygOhsaOyVb4GlZqNvTv661msbAtvbpUtV28rfhmQ0gSWDyXSX_eRtzBHEOuCAZ-5SzQWRNneHSja7zMGAl99ccNDJ4scxBvAaTOmkhB6-y6m-sG0IZ6niFY_8OlJCJ_eI6SW7B5e9yUFurVhiy2y50vuQ"/>
+<span class="absolute top-4 left-4 px-3 py-1 bg-error text-white text-[10px] font-bold rounded-full">Pending</span>
+<div class="absolute inset-0 bg-civic-blue/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="text-white font-bold text-sm bg-civic-blue/90 px-4 py-2 rounded-lg flex items-center gap-2">View Details <span class="material-symbols-outlined text-sm">open_in_new</span></span>
+</div>
+</div>
+<div class="p-5 sm:p-6">
+<div class="flex items-center gap-2 text-neutral-grey text-[10px] font-medium mb-3">
+<span class="material-symbols-outlined text-sm">schedule</span> Yesterday
+                        </div>
+<h4 class="text-lg sm:text-xl font-headline font-bold mb-2">Street Light Outage</h4>
+<p class="text-on-surface-variant text-sm mb-4 line-clamp-2">Entire block is dark between Oak and Maple. Residents concerned about night-time safety.</p>
+<div class="flex items-center gap-2 text-civic-blue font-semibold text-sm">
+<span class="material-symbols-outlined text-lg">location_on</span>
+                            Westside Residential
+                        </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="px-4 sm:px-8 py-16 sm:py-24">
+<div class="max-w-7xl mx-auto">
+<div class="bg-civic-blue rounded-[2.5rem] sm:rounded-[3rem] p-8 sm:p-24 relative overflow-hidden flex flex-col items-center text-center shadow-[inset_0_2px_20px_rgba(255,255,255,0.1),0_20px_50px_-10px_rgba(28,103,223,0.5)]">
+<div class="absolute inset-0 bg-gradient-to-br from-civic-blue to-blue-800 opacity-90 z-0"></div>
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-teal-accent rounded-full blur-[100px] opacity-20"></div>
+<div class="absolute -bottom-24 -left-24 w-96 h-96 bg-white rounded-full blur-[100px] opacity-10"></div>
+<div class="relative z-10 max-w-2xl">
+<h2 class="text-3xl sm:text-5xl font-headline font-bold text-white mb-6 leading-tight">Start Reporting Issues Today</h2>
+<p class="text-lg sm:text-xl text-primary-fixed-dim mb-10">Download our mobile app or use the web platform to keep your neighborhood safe and clean.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<a href="{% url 'reportissue' %}">
+    <button class="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-white text-civic-blue font-headline font-extrabold rounded-2xl">
+        Report Issue
+    </button>
+</a>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-slate-950 w-full mt-auto border-t border-slate-100">
+<div class="max-w-7xl mx-auto px-4 sm:px-8 py-16 sm:py-24 lg:py-32">
+<div class="flex flex-col lg:flex-row justify-between items-start gap-12 sm:gap-16 mb-16 sm:mb-24">
+<div class="max-w-md">
+<img alt="UrbanEcho Logo" class="w-auto object-contain mb-8 sm:mb-10 h-16 sm:h-20 h-24 w-auto" src="{% static 'assets/finallogo.png' %}">UrbanEcho helps citizens report and track city issues efficiently, fostering a cleaner, safer, and smarter urban environment.</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm sm:text-base leading-relaxed">Modern civic infrastructure for the smart cities of tomorrow. We make urban reporting transparent, fast, and community-driven.</p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 lg:gap-24 w-full lg:w-auto">
+<div>
+
+<ul class="space-y-4 sm:space-y-6">
+
+</ul>
+</div>
+<div>
+
+<ul class="space-y-4 sm:space-y-6">
+
+</ul>
+</div>
+<div>
+
+<ul class="space-y-4 sm:space-y-6">
+
+</ul>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center gap-8 pt-10 sm:pt-12 border-t border-slate-200 dark:border-slate-800">
+<p class="text-sm sm:text-base font-medium text-slate-500 dark:text-slate-400 text-center md:text-left">© 2026 UrbanEcho Smart City Systems. All rights reserved.</p>
+
+
+</div>
+</div>
+</div>
+</footer>
+<script>
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+
+menuToggle.addEventListener('click', () => {
+    const isHidden = mobileMenu.classList.contains('hidden');
+
+    if (isHidden) {
+        mobileMenu.classList.remove('hidden');
+        setTimeout(() => mobileMenu.classList.add('active'), 10);
+    } else {
+        mobileMenu.classList.remove('active');
+        setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+    }
+});
+</script>
+</body>
+</html>
