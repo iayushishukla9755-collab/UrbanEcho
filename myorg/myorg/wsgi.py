@@ -12,7 +12,7 @@ import os
 from django.core.wsgi import get_wsgi_application
 from django.urls import path, include
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myorg.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myorg.myorg.settings')
 
 application = get_wsgi_application()
 
