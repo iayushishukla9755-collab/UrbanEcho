@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'u877468583_jlu_ayushi',
         'USER': 'u877468583_jlu_ayushi',
         'PASSWORD': '6V:!er/vy$',
-        'HOST': 'localhost',
+        'HOST': 'srv923.hstgr.io',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
