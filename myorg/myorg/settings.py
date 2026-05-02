@@ -82,50 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get('MYSQLDATABASE', 'u877468583_jlu_ayushi'),
         'USER': os.environ.get('MYSQLUSER', 'u877468583_jlu_ayushi'),
-        'PASSWORD': os.environ.get('MYSQLPASSWORD', '6V:!er/vy
-
-
-# Password validation
-# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# Media files (Uploaded Images)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-),
+        'PASSWORD': os.environ.get('MYSQLPASSWORD', ''),
         'HOST': os.environ.get('MYSQLHOST', 'localhost'),
         'PORT': os.environ.get('MYSQLPORT', '3306'),
         'OPTIONS': {
