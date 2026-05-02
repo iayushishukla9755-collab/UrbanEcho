@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'myorg.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'urbanechodb',
-        'USER': 'root',
-        'PASSWORD': 'JAImat@Di999',
+        'NAME': 'u877468583_jlu_ayushi',
+        'USER': 'u877468583_jlu_ayushi',
+        'PASSWORD': '6V:!er/vy$',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
