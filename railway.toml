@@ -3,5 +3,5 @@ builder = "NIXPACKS"
 buildCommand = "pip install -r requirements.txt"
 
 [deploy]
-preDeployCommand = "cd myorg && python manage.py migrate"
-startCommand = "cd myorg && gunicorn myorg.wsgi --bind 0.0.0.0:$PORT"
+preDeployCommand = "python manage.py migrate"
+startCommand = "gunicorn myorg.wsgi --bind 0.0.0.0:$PORT"
