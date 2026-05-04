@@ -1,8 +1,8 @@
-﻿Django==5.2.13
+Pillow
+Django==5.2.13
 djangorestframework==3.16.1
 drf-yasg
 gunicorn
 whitenoise
 requests
 PyMySQL
-Pillow
