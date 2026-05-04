@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-b1wpr2y1_@p0p6bgxvvhc((zk29(ydve_xi4rif=g9(2385l14
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'web-production-42a9.up.railway.app']
 
 
 # Application definition
@@ -91,7 +91,7 @@ DATABASES = {
     }
 }
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-42a9.up.railway.app/', 'https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-42a9.up.railway.app', 'https://*.127.0.0.1']
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
