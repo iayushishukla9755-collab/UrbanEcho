@@ -4,8 +4,6 @@ from .serializers import UserSerializer, IssueSerializer, RatingSerializer
 from django.db.models import Avg
 from django.shortcuts import render, redirect
 import random
-import uuid
-from django.contrib.auth.hashers import make_password
 
 def generate_user_id():
     while True:
@@ -36,35 +34,34 @@ def home_view(request):
     return render(request, 'home.html')
 
 def signin_view(request):
-
     if request.method == 'POST':
-
-        user_name = request.POST.get('user_name')
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        # Check existing email
-        if User.objects.filter(email=email).exists():
+        # Clear previous session
+        request.session.flush()
 
-            return render(request, 'signin.html', {
-                'error': 'Email already registered'
-            })
+        # Admin login
+        if email == "admin@gmail.com" and password == "admin123":
+            request.session['admin'] = True
+            return redirect('admin_dashboard')
 
-        # Create user
-        user = User.objects.create(
+        try:
+            # Existing user login
+            user = User.objects.get(email=email, password=password)
 
-            user_id=str(uuid.uuid4())[:10],
-
-            user_name=user_name,
-
+        except User.DoesNotExist:
+            user = User.objects.create(
+            user_name=email.split('@')[0],
             email=email,
+            password=password
+            )
 
-            password=make_password(password)
-        )
+        # Store user session
+        request.session['user_id'] = user.user_id
+        request.session['user_name'] = user.user_name
 
-        return render(request, 'signin.html', {
-            'success': 'Account created successfully'
-        })
+        return redirect('userdashboard')
 
     return render(request, 'signin.html')
 
