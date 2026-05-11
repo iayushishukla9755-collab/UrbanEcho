@@ -35,7 +35,7 @@ class RatingViewSet(viewsets.ModelViewSet):
 def home_view(request):
     return render(request, 'home.html')
 
-def signup_view(request):
+def signin_view(request):
 
     if request.method == 'POST':
 
@@ -46,7 +46,7 @@ def signup_view(request):
         # Check existing email
         if User.objects.filter(email=email).exists():
 
-            return render(request, 'signup.html', {
+            return render(request, 'signin.html', {
                 'error': 'Email already registered'
             })
 
@@ -66,7 +66,7 @@ def signup_view(request):
             'success': 'Account created successfully'
         })
 
-    return render(request, 'signup.html')
+    return render(request, 'signin.html')
 
 def reportissue_view(request):
     if 'user_id' not in request.session:
