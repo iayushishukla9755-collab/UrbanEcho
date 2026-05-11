@@ -1,23 +1,3 @@
-# from rest_framework import serializers
-# from .models import User, Issue, Rating
-
-
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = '__all__'
-
-
-# class IssueSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Issue
-#         fields = '__all__'
-
-
-# class RatingSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Rating
-#         fields = '__all__'
 
 from rest_framework import serializers
 from .models import User, Issue, Rating
