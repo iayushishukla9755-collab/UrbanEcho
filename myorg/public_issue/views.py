@@ -235,7 +235,7 @@ def admin_dashboard(request):
     if 'admin' not in request.session:
         return redirect('signin')
 
-    issues = Issue.objects.order_by('-created_at')
+    issues = Issue.objects.all()
 
     total_issues = issues.count()
     pending = issues.filter(status='Pending').count()
