@@ -251,19 +251,29 @@
     </div>
 
     <div class="flex items-center gap-3">
-        <form method="POST" action="{% url 'update_status' issue.issue_id %}">
-            {% csrf_token %}
-            <select name="status" class="text-xs bg-surface-container-low rounded-lg py-2 px-3">
-                <option value="Pending">Pending</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Resolved">Resolved</option>
-            </select>
+    <form method="POST" action="{% url 'update_status' issue.issue_id %}">
+        {% csrf_token %}
 
-            <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg text-sm">
-                Update
-            </button>
-        </form>
-    </div>
+        <select 
+            name="status"
+            onchange="this.form.submit()"
+            class="text-sm bg-primary text-white px-4 py-2 rounded-lg cursor-pointer outline-none"
+        >
+            <option value="Pending" {% if issue.status == 'Pending' %}selected{% endif %}>
+                Pending
+            </option>
+
+            <option value="In Progress" {% if issue.status == 'In Progress' %}selected{% endif %}>
+                In Progress
+            </option>
+
+            <option value="Resolved" {% if issue.status == 'Resolved' %}selected{% endif %}>
+                Resolved
+            </option>
+        </select>
+
+    </form>
+</div>
 
 </div>
 {% endfor %}
@@ -287,4 +297,3 @@
 <div class="fixed top-40 left-1/2 w-32 sm:w-48 h-32 sm:h-48 bg-secondary/5 rounded-full blur-2xl -z-10 pointer-events-none"></div>
 </main>
 </body></html>
-
